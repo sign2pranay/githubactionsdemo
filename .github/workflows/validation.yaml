@@ -72,7 +72,7 @@ jobs:
       env:  
         files: cat $HOME/files.json
       run: |
-        echo '{{files}}'
+        echo $files
 
     - name: set output
       id: set
