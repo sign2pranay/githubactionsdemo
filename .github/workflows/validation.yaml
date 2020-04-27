@@ -69,9 +69,10 @@ jobs:
         echo '${{ steps.file_changes.outputs.files_removed}}'
 
     - name: printing output
+      env:  
+        files: cat $HOME/files.json
       run: |
-          filesChanged: cat $HOME/files.json
-          echo '{{filesChanged}}'
+        echo '{{files}}'
 
     - name: set output
       id: set
