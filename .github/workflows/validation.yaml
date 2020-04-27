@@ -3,7 +3,7 @@ name: CI
 # Controls when the action will run. Triggers the workflow on push or pull request
 
 # events but only for the master branch
-on: push
+on: [push, pull_request] 
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 
@@ -69,7 +69,7 @@ jobs:
       id: package
       uses: juliangruber/read-file-action@v1
       with:
-          path: files.json
+          path: $HOME/files.json
     - name: Echo updatedfiles.json
       run: echo ${{ steps.package.outputs.content }}
 
