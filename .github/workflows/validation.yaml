@@ -72,6 +72,7 @@ jobs:
         
 
         echo 'testing'
+        cat $HOME/files.json
 
         echo '${{ steps.file_changes.outputs.files_modified}}'
 
