@@ -1,104 +1,18 @@
-# This is a basic workflow to help you get started with Actions
-name: CI
-# Controls when the action will run. Triggers the workflow on push or pull request
-
-# events but only for the master branch
-on: [push, pull_request] 
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-
+name: push-develop
+on: [push]
 jobs:
-  # This workflow contains a single job called "build"
-
-  build:
-    # The type of runner that the job will run on
-
+  changes:
     runs-on: ubuntu-latest
-    # Steps represent a sequence of tasks that will be executed as part of the job
-
     steps:
-
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-
-    - uses: actions/checkout@v2
-
-    - uses: trilom/file-changes-action@v1.2.3
-
-
-
-    # Runs a single command using the runners shell
-
-    - name: Run a one-line script
-
-      run: echo Hello, world!
-
-
-
-    # Runs a set of commands using the runners shell
-
-    - name: Run a multi-line script
-
-      run: | 
-        echo Add other actions to build,
-
-        echo test, and deploy your project.
-
-        
-
-     
-
-    - name: retrieving the added or update files
-      id: file_changess
-      run: |
-
-        cat $HOME/files.json
-        cat $HOME/files_modified.json
-        cat $HOME/files_added.json
-        cat $HOME/files_removed.json
-        echo '${{ steps.file_changes.outputs.files}}'
-        echo '${{ steps.file_changes.outputs.files_modified}}'
-        echo '${{ steps.file_changes.outputs.files_added}}'
-        echo '${{ steps.file_changes.outputs.files_removed}}'
-        echo 'testing'
-        cat $HOME/files.json
-        echo 'all files'
-        echo '${{ steps.file_changes.outputs.files}}'
-        echo 'updated files'
-        echo '${{ steps.file_changes.outputs.files_modified}}'
-        echo '${{ steps.file_changes.outputs.files_added}}'
-        echo '${{ steps.file_changes.outputs.files_removed}}'
-
-
-    - name: printing output
-      env:  
-        files: $(cat $HOME/files.json)
-      run: |
-        echo $files
-        echo ::set-env name=FOO::$(echo -n "hello world")
-
-    - name: set output
-      id: set
-      run: |
-         echo ::set-output name=json_var::'[ { "name": "test", "client_payload": "111" }, { "name": "test2", "client_payload": "222" } ] '
-    - name: use output
-      run: |
-        echo $json_var | jq '.[].name'
-      env:
-        json_var: ${{ steps.set.outputs.json_var}}   
-        
-
-    - name: use file
-      id: file
-      run: |
-         echo ::set-output name=json_v:: {{cat $HOME/files.json}}
-    
-    - name: use output
-      run: |
-        echo $json_v | jq '.[].name'
-      env:
-        json_v: ${{ steps.file.outputs.json_var}}   
-        
-
-
-
-            
+      - id: file_changes
+        uses: trilom/file-changes-action@v1.2.3
+      - name: test
+        run: |
+          cat $HOME/files.json
+          cat $HOME/files_modified.json
+          cat $HOME/files_added.json
+          cat $HOME/files_removed.json
+          echo '${{ steps.file_changes.outputs.files}}'
+          echo '${{ steps.file_changes.outputs.files_modified}}'
+          echo '${{ steps.file_changes.outputs.files_added}}'
+          echo '${{ steps.file_changes.outputs.files_removed}}'
