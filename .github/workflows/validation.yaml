@@ -38,8 +38,7 @@ jobs:
 
     - name: Run a multi-line script
 
-      run: |
-
+      run: | 
         echo Add other actions to build,
 
         echo test, and deploy your project.
@@ -49,35 +48,28 @@ jobs:
      
 
     - name: retrieving the added or update files
-
       run: |
 
         cat $HOME/files.json
-
         cat $HOME/files_modified.json
-
         cat $HOME/files_added.json
-
         cat $HOME/files_removed.json
-
         echo '${{ steps.file_changes.outputs.files}}'
-
         echo '${{ steps.file_changes.outputs.files_modified}}'
-
         echo '${{ steps.file_changes.outputs.files_added}}'
         echo '${{ steps.file_changes.outputs.files_removed}}'
-
-        
-
-        
-
         echo 'testing'
         cat $HOME/files.json
-
         echo '${{ steps.file_changes.outputs.files_modified}}'
-
         echo '${{ steps.file_changes.outputs.files_added}}'
-
         echo '${{ steps.file_changes.outputs.files_removed}}'
+
+    - name: Read updatefiles.json
+      id: package
+      uses: juliangruber/read-file-action@v1
+      with:
+      path: $HOME/files.json
+    - name: Echo updatedfiles.json
+      run: echo ${{ steps.package.outputs.content }}
 
             
