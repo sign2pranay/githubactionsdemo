@@ -70,9 +70,8 @@ jobs:
 
     - name: printing output
       run: |
-         echo '{{ steps.file_changes.outputs.files}}'
-         echo '{{ steps.file_changes.outputs.files_modified}}'
-         cat $HOME/files.json
+          filesChanged: cat $HOME/files.json
+          echo '{{filesChanged}}'
 
     - name: set output
       id: set
