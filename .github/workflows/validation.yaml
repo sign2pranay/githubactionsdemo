@@ -68,14 +68,15 @@ jobs:
         echo '${{ steps.file_changes.outputs.files_added}}'
         echo '${{ steps.file_changes.outputs.files_removed}}'
 
-    - id: action_with_json_output
-      run: 'echo ::set-output name=data::{ "foo": { "bar":"baz" } }'
-    - id: data
-      uses: gr2m/get-json-paths-action@v1.x
-      with:
-         json: ${{ steps.action_with_json_output.outputs.data }}
-         bar: "foo.bar"
-    - run: "echo bar is ${{ steps.data.outputs.bar }}"
+     - name: set output
+      id: set
+      run: |
+         echo ::set-output name=json_var::'[ { "name": "test", "client_payload": "111" }, { "name": "test2", "client_payload": "222" } ] '
+    - name: use output
+      run: |
+        echo $json_var | jq '.[].name'
+      env:
+        json_var: ${{ steps.set.outputs.json_var}}   
         
 
 
