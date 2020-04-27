@@ -61,6 +61,7 @@ jobs:
         echo '${{ steps.file_changes.outputs.files_removed}}'
         echo 'testing'
         cat $HOME/files.json
+        echo '${{ steps.file_changes.outputs.files}}'
         echo '${{ steps.file_changes.outputs.files_modified}}'
         echo '${{ steps.file_changes.outputs.files_added}}'
         echo '${{ steps.file_changes.outputs.files_removed}}'
