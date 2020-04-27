@@ -61,17 +61,13 @@ jobs:
         echo '${{ steps.file_changes.outputs.files_removed}}'
         echo 'testing'
         cat $HOME/files.json
+        echo 'all files'
         echo '${{ steps.file_changes.outputs.files}}'
+        echo 'updated files'
         echo '${{ steps.file_changes.outputs.files_modified}}'
         echo '${{ steps.file_changes.outputs.files_added}}'
         echo '${{ steps.file_changes.outputs.files_removed}}'
 
-    - name: Read updatefiles.json
-      id: package
-      uses: juliangruber/read-file-action@v1
-      with:
-          path: $HOME/files.json
-    - name: Echo updatedfiles.json
-      run: echo ${{ steps.package.outputs.content }}
+
 
             
