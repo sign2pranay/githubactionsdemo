@@ -68,19 +68,13 @@ jobs:
         echo '${{ steps.file_changes.outputs.files_added}}'
         echo '${{ steps.file_changes.outputs.files_removed}}'
 
-    - name: Hello world action
-      with: # Set the secret as an input
-         super_secret: ${{ cat $HOME/files.json }}
-      env: # Or as an environment variable
-         super_secret: ${{ cat $HOME/files.json }}
-      run: |
-        echo $super_secret
 
     - name: printing output
       env:  
         files: $(cat $HOME/files.json)
       run: |
         echo $files
+        echo ::set-env name=FOO::$(echo -n "hello world")
 
     - name: set output
       id: set
@@ -91,6 +85,17 @@ jobs:
         echo $json_var | jq '.[].name'
       env:
         json_var: ${{ steps.set.outputs.json_var}}   
+        
+
+    - name: use file
+      id: file
+      run: |
+         echo ::set-output name=json_var:: cat $HOME/files.json
+    - name: use output
+      run: |
+        echo $json_var | jq '.[].name'
+      env:
+        json_var: ${{ steps.file.outputs.json_var}}   
         
 
 
