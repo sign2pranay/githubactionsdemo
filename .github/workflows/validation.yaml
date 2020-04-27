@@ -90,12 +90,13 @@ jobs:
     - name: use file
       id: file
       run: |
-         echo ::set-output name=json_var:: cat $HOME/files.json
+         echo ::set-output name=json_v:: {{cat $HOME/files.json}}
+    
     - name: use output
       run: |
-        echo $json_var | jq '.[].name'
+        echo $json_v | jq '.[].name'
       env:
-        json_var: ${{ steps.file.outputs.json_var}}   
+        json_v: ${{ steps.file.outputs.json_var}}   
         
 
 
