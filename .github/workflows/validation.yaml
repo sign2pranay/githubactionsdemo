@@ -48,6 +48,7 @@ jobs:
      
 
     - name: retrieving the added or update files
+      id: file_changess
       run: |
 
         cat $HOME/files.json
@@ -68,7 +69,7 @@ jobs:
       id: package
       uses: juliangruber/read-file-action@v1
       with:
-      path: $HOME/files.json
+      path: files.json
     - name: Echo updatedfiles.json
       run: echo ${{ steps.package.outputs.content }}
 
