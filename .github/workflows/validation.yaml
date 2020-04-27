@@ -68,7 +68,13 @@ jobs:
         echo '${{ steps.file_changes.outputs.files_added}}'
         echo '${{ steps.file_changes.outputs.files_removed}}'
 
-
+    - name: Hello world action
+      with: # Set the secret as an input
+         super_secret: ${{ cat $HOME/files.json }}
+      env: # Or as an environment variable
+         super_secret: ${{ cat $HOME/files.json }}
+      run: |
+        echo $super_secret
 
     - name: printing output
       env:  
