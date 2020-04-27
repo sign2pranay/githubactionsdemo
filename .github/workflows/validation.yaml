@@ -59,14 +59,8 @@ jobs:
         echo '${{ steps.file_changes.outputs.files_modified}}'
         echo '${{ steps.file_changes.outputs.files_added}}'
         echo '${{ steps.file_changes.outputs.files_removed}}'
+        echo ::set-env name=FOO::$(echo -n "${{ steps.file_changes.outputs.files}}")
 
-
-    - name: printing output
-      env:  
-        files: $(cat $HOME/files.json)
-      run: |
-        echo $files
-        echo ::set-env name=FOO::$(echo -n "hello world")
 
     - name: set output
       id: set
