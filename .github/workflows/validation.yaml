@@ -65,12 +65,5 @@ jobs:
         echo '${{ steps.file_changes.outputs.files_added}}'
         echo '${{ steps.file_changes.outputs.files_removed}}'
 
-    - name: Read updatefiles.json
-      id: package
-      uses: juliangruber/read-file-action@v1
-      with:
-      path: files.json
-    - name: Echo updatedfiles.json
-      run: echo ${{ steps.package.outputs.content }}
 
             
